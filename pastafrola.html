@@ -9,6 +9,7 @@
     <!-- CSS only -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons"
       rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/style.css">
 </head>
@@ -20,32 +21,34 @@
                 Ingredientes Pastafrola
             </h1>
             <form id="formulario">
+                <div class="form_ingrediente my-3">
                 <h3>Ingrediente:</h3>
-                <input type="text" id="ingrediente" class="form-control my-3" >
-                <h3>Presentacion:</h3>
-                <input type="text" id="tamanio" class="form-control my-3">
-                <h3>Precio:</h3>
-                <input type="number" id="precio" class="form-control my-3">
-                <button class="btn btn-secondary mx-1">Calcular Costo</button>
+                <input type="text" id="ingrediente_input" class="form-control my-3" >
+                </div>
+                <div class="form_number">
+                    <p>Presentacion <br>En Gramos:</p>
+                    <p>Precio:</p>
+                </div>
+                <div class="form_number_input my-3">
+                    <input type="number" id="tamanio_input" class="form-control my-3">
+                    <input type="number" id="precio_input" class="form-control my-3">    
+                </div>
+                <button type="button" class="btn btn-secondary mx-1">Calcular Costo</button>
                 <button type="submit" class="btn btn-primary">Guardar</button>
             </form>
-            <div id="listaIngredientes" class="mt-4">
-                <div class="alert alert-primary" role="alert">
-                    <i class="icono float-left mr-2"><img src="./img/ingredientes.png" alt="ingredientes"></i>
-                    <b>Ingrediente</b>
-                    <span class="float-right">
-                        <i class="material-icons">
-                            delete
-                        </i>
-                        
-                    </span>
+            <div class="lista_item" id="listaIngredientes" class="mt-4">
+              
+            </div>
+            <div class="form_costo">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">RESULTADO/COSTO: </span>
+                    <output id="resultado_costo" class="form-control" aria-label="">
                 </div>
             </div>
-
         </div>
     </div>
 <!-- JavaScript Bundle with Popper -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="./js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.2/dist/umd/popper.min.js" integrity="sha384-q9CRHqZndzlxGLOj+xrdLDJa9ittGte1NksRmgJKeCV9DrM7Kz868XYqsKWPpAmn" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>

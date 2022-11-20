@@ -81,6 +81,42 @@ main {
     font-family:sans-serif;
 }
 
+.form_number{
+    display: flex;
+    gap: 5rem;
+}
+.form_number_input{
+    display: flex;
+    gap: 5rem;
+    width: 300px;
+}
+
+.form_ingrediente input{
+    width: 300px;
+}
+
+.form_number p{
+    font-size: large;
+}
+
+.contenedorPastafrola h1{
+    text-align: center;
+}
+
+.lista_item{
+    margin-top: 1rem;
+}
+
+.contenedorPastafrola{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form_costo{
+    margin-top: 2rem;
+}
+
 @media screen and (min-width: 400px){
     .main-grid{
         display: grid;
@@ -98,7 +134,25 @@ main {
     .item img{
         width: 40px;
     }
+
+    .form_number p{
+        font-size: x-large;
+    }
+
+    .form_number_input{
+        width: 400px;
+    }
+    
+    .form_ingrediente input{
+        width: 400px;
+    }
+
+    .lista_item{
+        width: 400px ;
+    }
 }
+
+
 
 @media screen and (min-width: 600px){
     .main-grid{
@@ -112,7 +166,24 @@ main {
     .item img{
         width: 50px;
     }
+
+    .form_number_input{
+        width: 500px;
+    }
+    
+    .form_ingrediente input{
+        width: 500px;
+    }
+
+    .form_number{
+        gap: 9rem;
+    }
+
+    .lista_item{
+        width: 500px ;
+    }
 }
+
 @media screen and (min-width: 800px){
     .main-grid{
         padding: 8rem 12rem;
@@ -131,6 +202,31 @@ main {
         font-size: x-large;
     }
 
+    .form_number_input{
+        display: flex;
+        width: 400px;
+    }
+
+    .form_number p{
+        font-size: x-large;
+        font-weight: 500;
+    }
+    
+    .form_ingrediente input{
+        width: 400px;
+    }
+
+    .contenedorPastafrola{
+        /* border: solid lightblue;
+        border-radius: .75rem; */
+        padding: 20px;
+        margin: 6rem;
+    }
+
+    .lista_item{
+        width: 400px ;
+    }
+
 }
 
 @media screen and (min-width: 1000px){
@@ -143,5 +239,24 @@ main {
     .item:nth-child(4){
         grid-row: 4 / 1;
     } */
+
+    .form_number_input{
+        display: flex;
+        width: 500px;
+    }
+    
+    .form_ingrediente input{
+        width: 500px;
+    }
+
+    .lista_item{
+             
+        width: 500px;
+    }
+
+    .contenedorPastafrola{
+        margin-left: 10rem;
+    }
+
 
 }
