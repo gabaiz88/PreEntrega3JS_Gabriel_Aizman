@@ -89,7 +89,7 @@ const guardarIngrediente = () => {
 
 const listarDB = () => {
     listaIngredientesUI.innerHTML = "";
-
+    costo = calcularCosto();
     arrayIngredientes = JSON.parse(localStorage.getItem("lista")); 
     if(arrayIngredientes === null){
         arrayIngredientes = [];
@@ -97,6 +97,8 @@ const listarDB = () => {
         arrayIngredientes.forEach(element => {
             listaIngredientesUI.innerHTML += `<div class="alert alert-primary" role="alert"><i class="icono float-left mr-2"><img src="./img/ingredientes.png" alt="ingredientes"></i><b>${element.ingrediente}</b><span>  - Tamaño: ${element.tamanio}</span><span>  - Precio: $${element.precio}</span><span>  - Cantidad: ${element.cantidad}</span><span class="float-right"><i class="material-icons">delete</i></span></div>`
         });
+        listaIngredientesUI.innerHTML += `
+        <div class="form_costo"><div class="input-group mb-3"><span class="input-group-text">RESULTADO/COSTO:</span><output id="resultado_costo" class="form-control" aria-label="">${costo}</div></div>`
     }
 }
 
@@ -114,10 +116,15 @@ const calcularCosto = () => {
     let costoIndividual = 0;
     let sumarCostos = 0;
     arrayIngredientes.forEach((elemento) => {
-        costoIndividual = (elemento.cantidad / elemento.tamanio) * elemento.precio;
-        sumarCostos += parseInt(costoIndividual);
+        if (elemento.precio > 0 && elemento.cantidad > 0 && elemento.tamanio > 0){
+            costoIndividual = parseFloat((elemento.cantidad / elemento.tamanio) * elemento.precio);
+        } else {
+            costoIndividual = 0;
+        }
+        sumarCostos += parseFloat(costoIndividual);
     })
     console.log(sumarCostos);
+    return sumarCostos;
 }
 
 //EventListener
@@ -160,8 +167,8 @@ listaIngredientesUI.addEventListener("click", (e) => {
     }
 });
 
-botonCosto.addEventListener("click", (e) =>{
-   e.preventDefault();
+// botonCosto.addEventListener("click", (e) =>{
+//    e.preventDefault();
 
-    calcularCosto();
-})
+//     calcularCosto();
+// })
