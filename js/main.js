@@ -117,11 +117,11 @@ const calcularCosto = () => {
     let sumarCostos = 0;
     arrayIngredientes.forEach((elemento) => {
         if (elemento.precio > 0 && elemento.cantidad > 0 && elemento.tamanio > 0){
-            costoIndividual = parseFloat((elemento.cantidad / elemento.tamanio) * elemento.precio);
+            costoIndividual = parseInt((elemento.cantidad / elemento.tamanio) * elemento.precio);
         } else {
             costoIndividual = 0;
         }
-        sumarCostos += parseFloat(costoIndividual);
+        sumarCostos += parseInt(costoIndividual);
     })
     console.log(sumarCostos);
     return sumarCostos;

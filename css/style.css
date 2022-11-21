@@ -226,6 +226,10 @@ main {
         width: 400px ;
     }
 
+    i{
+        cursor: pointer;
+    }
+
 }
 
 @media screen and (min-width: 1000px){
