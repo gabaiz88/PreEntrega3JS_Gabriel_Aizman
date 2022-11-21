@@ -61,19 +61,19 @@
 
 //Variables
 const formularioUI = document.getElementById("formulario");
+const botonCosto = document.getElementById("boton_costo");
 const listaIngredientesUI = document.getElementById("listaIngredientes");
 let arrayIngredientes = [];
 
-
-
 //Funciones
 
-const crearItem = (ingrediente, tamanio, precio) => {
+const crearItem = (ingrediente, tamanio, precio, cantidad) => {
     let ingredienteUpper = ingrediente.toLowerCase();
     let item = {
         ingrediente: ingredienteUpper, 
         tamanio: tamanio,
-        precio: precio
+        precio: precio,
+        cantidad: cantidad
     }
 
     arrayIngredientes.push(item);
@@ -95,22 +95,31 @@ const listarDB = () => {
         arrayIngredientes = [];
     } else {
         arrayIngredientes.forEach(element => {
-            listaIngredientesUI.innerHTML += `
-            <div class="alert alert-primary" role="alert">
-                <i class="icono float-left mr-2"><img src="./img/ingredientes.png" alt="ingredientes"></i>
-                <b>${element.ingrediente}</b>
-                <span>- Tamaño:${element.tamanio}</span>
-                <span>- Precio: $${element.precio}</span>
-                <span class="float-right">
-                    <i class="material-icons">
-                        delete
-                    </i>
-                </span>
-            </div>
-            `
+            listaIngredientesUI.innerHTML += `<div class="alert alert-primary" role="alert"><i class="icono float-left mr-2"><img src="./img/ingredientes.png" alt="ingredientes"></i><b>${element.ingrediente}</b><span>  - Tamaño: ${element.tamanio}</span><span>  - Precio: $${element.precio}</span><span>  - Cantidad: ${element.cantidad}</span><span class="float-right"><i class="material-icons">delete</i></span></div>`
         });
     }
 }
+
+const eliminarItem = (ingrediente) => {
+    arrayIngredientes.forEach((elemento, index) => {
+        if (elemento.ingrediente === ingrediente){
+            indexArray = index;
+        }
+    })
+    arrayIngredientes.splice(indexArray, 1);
+    guardarIngrediente();
+}
+
+const calcularCosto = () => {
+    let costoIndividual = 0;
+    let sumarCostos = 0;
+    arrayIngredientes.forEach((elemento) => {
+        costoIndividual = (elemento.cantidad / elemento.tamanio) * elemento.precio;
+        sumarCostos += parseInt(costoIndividual);
+    })
+    console.log(sumarCostos);
+}
+
 //EventListener
 
 formularioUI.addEventListener("submit", (e) => {
@@ -128,10 +137,31 @@ formularioUI.addEventListener("submit", (e) => {
     if (precio_inputUI === ""){
         precio_inputUI = 0;
     }
+    let cantidad_inputUI = document.getElementById("cantidad_input").value;
+    if (cantidad_inputUI === ""){
+        cantidad_inputUI = 0;
+    }
     console.log(ingrediente_inputUI);
-    crearItem(ingrediente_inputUI, tamanio_inputUI, precio_inputUI);
+    crearItem(ingrediente_inputUI, tamanio_inputUI, precio_inputUI, cantidad_inputUI);
     guardarIngrediente();
     formularioUI.reset();
 });
 
 document.addEventListener("DOMContentLoaded", listarDB);
+
+listaIngredientesUI.addEventListener("click", (e) => {
+
+    e.preventDefault();
+   
+    if(e.target.innerHTML === "delete"){
+        let ingrediente = e.path[2].childNodes[1].innerHTML;
+        //Eliminar ingrediente
+        eliminarItem(ingrediente);
+    }
+});
+
+botonCosto.addEventListener("click", (e) =>{
+   e.preventDefault();
+
+    calcularCosto();
+})

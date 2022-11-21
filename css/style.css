@@ -87,12 +87,12 @@ main {
 }
 .form_number_input{
     display: flex;
-    gap: 5rem;
-    width: 300px;
+    gap: 10rem;
+    width: 500px;
 }
 
 .form_ingrediente input{
-    width: 300px;
+    width: 400px;
 }
 
 .form_number p{
@@ -140,15 +140,15 @@ main {
     }
 
     .form_number_input{
-        width: 400px;
+        width: 500px;
     }
     
     .form_ingrediente input{
-        width: 400px;
+        width: 500px;
     }
 
     .lista_item{
-        width: 400px ;
+        width: 500px ;
     }
 }
 
@@ -220,7 +220,6 @@ main {
         /* border: solid lightblue;
         border-radius: .75rem; */
         padding: 20px;
-        margin: 6rem;
     }
 
     .lista_item{
@@ -242,21 +241,16 @@ main {
 
     .form_number_input{
         display: flex;
-        width: 500px;
+        width: 600px;
     }
     
     .form_ingrediente input{
-        width: 500px;
+        width: 600px;
     }
 
     .lista_item{
              
-        width: 500px;
+        width: 600px;
     }
-
-    .contenedorPastafrola{
-        margin-left: 10rem;
-    }
-
 
 }
