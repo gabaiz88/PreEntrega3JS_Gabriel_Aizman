@@ -87,16 +87,16 @@ main {
 
 .form_number{
     display: flex;
-    gap: 5rem;
+    gap: 2rem;
 }
 .form_number_input{
     display: flex;
-    gap: 10rem;
-    width: 500px;
+    gap: 2rem;
+    width: 300px;
 }
 
 .form_ingrediente input{
-    width: 400px;
+    width: 300px;
 }
 
 .form_number p{
@@ -119,6 +119,10 @@ main {
 
 .form_costo{
     margin-top: 2rem;
+}
+
+#trash{
+    cursor: pointer;
 }
 
 @media screen and (min-width: 400px){
@@ -270,3 +274,18 @@ main {
     }
 
 }
+/* 
+.form_number_input{
+    display: flex;
+    gap: 10rem;
+    width: 500px;
+}
+
+.form_ingrediente input{
+    width: 400px;
+}
+
+.form_number{
+    display: flex;
+    gap: 5rem;
+} */
