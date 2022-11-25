@@ -3,6 +3,7 @@
 const formularioUI = document.getElementById("formulario");
 const botonCosto = document.getElementById("boton_costo");
 const listaIngredientesUI = document.getElementById("listaIngredientes");
+const boton_eliminarUI = document.getElementById("boton_eliminar");
 let arrayIngredientes = [];
 
 //Funciones
@@ -154,6 +155,14 @@ listaIngredientesUI.addEventListener("click", (e) => {
         eliminarItem(ingrediente);
     }
 });
+
+boton_eliminarUI.addEventListener("click", (e) => {
+
+    e.preventDefault();
+    ingrediente = arrayIngredientes[arrayIngredientes.length-1].ingrediente;
+    eliminarItem(ingrediente);
+});
+
 
 // botonCosto.addEventListener("click", (e) =>{
 //    e.preventDefault();
