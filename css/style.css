@@ -41,6 +41,10 @@ main {
     gap: 1rem;
 }
 
+.main-grid-items{
+    text-align: center;
+}
+
 .item{
     display: flex;
     gap: 1rem;
@@ -118,11 +122,11 @@ main {
 }
 
 @media screen and (min-width: 400px){
-    .main-grid{
+    /* .main-grid{
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-auto-rows: 1fr;
-    }
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+    } */
 
     .item{
         flex-direction: column;
@@ -155,8 +159,15 @@ main {
 
 
 @media screen and (min-width: 600px){
-    .main-grid{
+    /* .main-grid{
         grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
+    } */
+    
+    .main-grid-items{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
     }
 
     .item{
@@ -186,12 +197,24 @@ main {
 
 @media screen and (min-width: 800px){
     .main-grid{
-        padding: 8rem 12rem;
-        grid-template-columns: 1fr 1fr;
+        padding: 8rem 8rem;
+    }
+
+    .main-grid-items{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    #botonTortas{
+    width: 400px;
+    height: 120px;
+    margin-left: 250px;
     }
 
     .item{
         padding: 3rem 1rem;
+        width: 220px;
     }
 
     .item img{
@@ -234,26 +257,15 @@ main {
 
 @media screen and (min-width: 1000px){
     .main-grid{
-        padding: 8rem 20rem;
-        grid-template-columns: 1fr 1fr;
-        /* grid-template-rows: 1fr 1fr 1fr; */
+        display: flex;
     }
-/* 
-    .item:nth-child(4){
-        grid-row: 4 / 1;
-    } */
-
+    
     .form_number_input{
         display: flex;
         width: 600px;
     }
     
     .form_ingrediente input{
-        width: 600px;
-    }
-
-    .lista_item{
-             
         width: 600px;
     }
 
