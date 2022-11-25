@@ -1,65 +1,5 @@
-// const TAMANIO_HARINA = 1000;
-// const CANT_HUEVOS = 30;
-// const TAMANIO_LECHE = 1000;
-// const TAMANIO_MANTECA = 500;
-// const TAMANIO_AZUCAR = 1000;
-// const TAMANIO_MEMBRILLO = 500;
-// const TAMANIO_CHOCOLATE = 1000;
-// const cantOpciones = 4; 
-// let precio;
-
-// const ingredientesPastafrola = [
-//     {id: 1, nombre: "HUEVO", precio: 200, tamanio: CANT_HUEVOS},
-//     {id: 2, nombre: "HARINA", precio: 0, tamanio: TAMANIO_HARINA},
-//     {id: 3, nombre: "AZUCAR", precio: 0, tamanio: TAMANIO_AZUCAR},
-//     {id: 4, nombre: "MANTECA", precio: 0, tamanio: TAMANIO_MANTECA},
-//     {id: 5, nombre: "MEMBRILLO", precio: 0, tamanio: TAMANIO_MEMBRILLO},
-// ];
-
-// const ingredientesBrownie = [
-//     {id: 1, nombre: "HUEVO", precio: 0, tamanio: CANT_HUEVOS},
-//     {id: 2, nombre: "HARINA", precio: 0, tamanio: TAMANIO_HARINA},
-//     {id: 3, nombre: "AZUCAR", precio: 0, tamanio: TAMANIO_AZUCAR},
-//     {id: 4, nombre: "MANTECA", precio: 0, tamanio: TAMANIO_MANTECA},
-//     {id: 5, nombre: "CHOCOLATE", precio: 0, tamanio: TAMANIO_CHOCOLATE},
-// ];
-
-// const tortas = [    
-//     {id: 1, ingredientesPastafrola},
-//     {id:2, ingredientesBrownie},
-// ];
-
-// const listaIngredientes = document.getElementById("tablaIngredientes");
-
-// opcionModal = document.getElementById("modal_1");
-
-
-
-// ingredientesPastafrola.forEach(ingrediente => {
-//     if (ingrediente.precio == 0){
-//         tabla = document.getElementById("tablaIngredientes");
-//         tabla.insertRow(-1).innerHTML = 
-//         `<td id="fila">${ingrediente.nombre}</td>
-//         <td id="fila">${ingrediente.tamanio}</td>
-//         <td><button class="btn btn-danger" id="agregarPrecio">Agregar Precio</button></td>
-//         <td><button class="btn" id="boton${ingrediente.id}"><img src="./img/x.png" alt="" width=15px></button></td>`;
-//     } else {
-//         tabla = document.getElementById("tablaIngredientes");
-//         tabla.insertRow(-1).innerHTML = 
-//         `<td id="fila">${ingrediente.nombre}</td>
-//         <td id="fila">${ingrediente.tamanio}</td>
-//         <td id="fila">${ingrediente.precio}</td>
-//         <td><button class="btn" id="boton${ingrediente.id}"><img src="./img/x.png" alt="" width=15px></button></td>`;
-//     }
-// });
-
-// document.addEventListener("DOMContentLoaded", DibujarModal);
-// listaIngredientes.addEventListener("click", (e) => {
-//    e.preventDefault(); 
-//    console.log(e);
-// });
-
 //Variables
+
 const formularioUI = document.getElementById("formulario");
 const botonCosto = document.getElementById("boton_costo");
 const listaIngredientesUI = document.getElementById("listaIngredientes");
@@ -84,7 +24,7 @@ const guardarIngrediente = () => {
 
     localStorage.setItem("lista", JSON.stringify(arrayIngredientes));
     listarDB();
-
+    
 }
 
 const listarDB = () => {
@@ -95,7 +35,7 @@ const listarDB = () => {
         arrayIngredientes = [];
     } else {
         arrayIngredientes.forEach(element => {
-            listaIngredientesUI.innerHTML += `<div class="alert alert-primary" role="alert"><i class="icono float-left mr-2"><img src="./img/ingredientes.png" alt="ingredientes"></i><b>${element.ingrediente}</b><span>  - Tamaño: ${element.tamanio}</span><span>  - Precio: $${element.precio}</span><span>  - Cantidad: ${element.cantidad}</span><span class="float-right"><i class="material-icons">delete</i></span></div>`
+            listaIngredientesUI.innerHTML += `<div class="alert alert-primary" role="alert"><i class="icono float-left mr-2"><img src="./img/ingredientes.png" alt="ingredientes"></i><b>${element.ingrediente}</b><span>  - Tamaño: ${element.tamanio}</span><span>  - Precio: $${element.precio}</span><span>  - Cantidad: ${element.cantidad}</span><span class="float-right"><i id="trash" class="material-icons">delete</i></span></div>`
         });
         listaIngredientesUI.innerHTML += `
         <div class="form_costo"><div class="input-group mb-3"><span class="input-group-text">RESULTADO/COSTO:</span><output id="resultado_costo" class="form-control" aria-label="">${costo}</div></div>`
@@ -103,13 +43,31 @@ const listarDB = () => {
 }
 
 const eliminarItem = (ingrediente) => {
-    arrayIngredientes.forEach((elemento, index) => {
-        if (elemento.ingrediente === ingrediente){
-            indexArray = index;
+    Swal.fire({
+        title: 'Estas seguro/a?',
+        text: "No podrás revertirlo",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, borralo!',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            'Borrado!',
+            'Tu ingrediente se borró.',
+            'success'
+          )
+          arrayIngredientes.forEach((elemento, index) => {
+            if (elemento.ingrediente === ingrediente){
+                indexArray = index;
+            }
+        })
+        arrayIngredientes.splice(indexArray, 1);
+        guardarIngrediente();
         }
-    })
-    arrayIngredientes.splice(indexArray, 1);
-    guardarIngrediente();
+      })
 }
 
 const calcularCosto = () => {
@@ -117,41 +75,71 @@ const calcularCosto = () => {
     let sumarCostos = 0;
     arrayIngredientes.forEach((elemento) => {
         if (elemento.precio > 0 && elemento.cantidad > 0 && elemento.tamanio > 0){
-            costoIndividual = parseInt((elemento.cantidad / elemento.tamanio) * elemento.precio);
+            costoIndividual = parseFloat((elemento.cantidad / elemento.tamanio) * elemento.precio);
         } else {
             costoIndividual = 0;
         }
-        sumarCostos += parseInt(costoIndividual);
+        sumarCostos += parseFloat(costoIndividual);
     })
     console.log(sumarCostos);
-    return sumarCostos;
+    return sumarCostos.toFixed(2);
+}
+
+const mensajeGuardado = () => {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      Toast.fire({
+        icon: 'success',
+        title: 'Ingrediente guardado'
+      })
+}
+
+const validarDato = (dato) => {
+    let validado = false;
+    if(dato != ""){
+        validado = true;
+    }
+    return validado;
 }
 
 //EventListener
 
 formularioUI.addEventListener("submit", (e) => {
     e.preventDefault();
-
+    let todosValidos = false;
     let ingrediente_inputUI = document.getElementById("ingrediente_input").value;
-    if (ingrediente_inputUI === ""){
-        ingrediente_inputUI = "Undefined"
+    if (validarDato(ingrediente_inputUI)){
+        let tamanio_inputUI = document.getElementById("tamanio_input").value;
+        if (validarDato(tamanio_inputUI)){
+            let precio_inputUI = document.getElementById("precio_input").value;
+            if (validarDato(precio_inputUI)){
+                let cantidad_inputUI = document.getElementById("cantidad_input").value;
+                if (validarDato(cantidad_inputUI)){
+                    crearItem(ingrediente_inputUI, tamanio_inputUI, precio_inputUI, cantidad_inputUI);
+                    guardarIngrediente();
+                    mensajeGuardado();
+                    formularioUI.reset();
+                    todosValidos = true;
+                }
+            }
+        }
+    } 
+    if (!todosValidos){
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Algunos de los campos estan vacios',
+          })
     }
-    let tamanio_inputUI = document.getElementById("tamanio_input").value;
-    if (tamanio_inputUI === ""){
-        tamanio_inputUI = 0;
-    }
-    let precio_inputUI = document.getElementById("precio_input").value;
-    if (precio_inputUI === ""){
-        precio_inputUI = 0;
-    }
-    let cantidad_inputUI = document.getElementById("cantidad_input").value;
-    if (cantidad_inputUI === ""){
-        cantidad_inputUI = 0;
-    }
-    console.log(ingrediente_inputUI);
-    crearItem(ingrediente_inputUI, tamanio_inputUI, precio_inputUI, cantidad_inputUI);
-    guardarIngrediente();
-    formularioUI.reset();
 });
 
 document.addEventListener("DOMContentLoaded", listarDB);
