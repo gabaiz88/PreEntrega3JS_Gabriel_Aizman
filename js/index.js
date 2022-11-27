@@ -44,7 +44,7 @@ const confirmarGuardado = () => {
 }
 
 //lista las tortas en el DOM
-const ListarNombresTortasDB = (torta) => {
+const ListarNombresTortasDB = () => {
     listaLinksUI.innerHTML = "";
     if(misTortas === null){
         misTortas = [];
@@ -79,8 +79,8 @@ const guardarNombreTorta = (torta) =>{
             ListarNombresTortasDB(torta);
             const url = new URL(`https://ingredientes.html?id=${torta.id}`);
             console.log(url);
-            const torta1 = new URLSearchParams(url.search);
-            console.log(torta1);
+            // const torta1 = new URLSearchParams(url.search);
+            // console.log(torta1);
         } else {
             Swal.fire({
                 icon: 'warning',
