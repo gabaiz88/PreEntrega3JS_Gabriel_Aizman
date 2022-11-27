@@ -5,10 +5,19 @@ const botonCosto = document.getElementById("boton_costo");
 const listaIngredientesUI = document.getElementById("listaIngredientes");
 const boton_eliminarUI = document.getElementById("boton_eliminar");
 let arrayIngredientes = [];
+let arrayTortas = []
+
+
+//Constructor
+function torta (id, nombre, array) {
+    this.id = id;
+    this.nombre = nombre;
+    this.arrayIngredientes = array;
+}
 
 //Funciones
 
-const crearItem = (ingrediente, tamanio, precio, cantidad) => {
+const crearItem = ( ingrediente, tamanio, precio, cantidad) => {
     let ingredienteUpper = ingrediente.toLowerCase();
     let item = {
         ingrediente: ingredienteUpper, 
@@ -16,7 +25,7 @@ const crearItem = (ingrediente, tamanio, precio, cantidad) => {
         precio: precio,
         cantidad: cantidad
     }
-
+    console.log(item);
     arrayIngredientes.push(item);
     return item;
 }
@@ -41,6 +50,7 @@ const listarDB = () => {
         listaIngredientesUI.innerHTML += `
         <div class="form_costo"><div class="input-group mb-3"><span class="input-group-text">RESULTADO/COSTO:</span><output id="resultado_costo" class="form-control" aria-label="">${costo}</div></div>`
     }
+    console.log(window.location.href);
 }
 
 const eliminarItem = (ingrediente) => {
@@ -82,7 +92,6 @@ const calcularCosto = () => {
         }
         sumarCostos += parseFloat(costoIndividual);
     })
-    console.log(sumarCostos);
     return sumarCostos.toFixed(2);
 }
 

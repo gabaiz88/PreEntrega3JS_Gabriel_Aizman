@@ -74,9 +74,13 @@ const guardarNombreTorta = (torta) =>{
         }
         if (!nombreIgual){
             misTortas.push(torta);
+            console.log(torta);
             confirmarGuardado();
             ListarNombresTortasDB(torta);
-            console.log(misTortas);
+            const url = new URL(`https://ingredientes.html?id=${torta.id}`);
+            console.log(url);
+            const torta1 = new URLSearchParams(url.search);
+            console.log(torta1);
         } else {
             Swal.fire({
                 icon: 'warning',
@@ -99,6 +103,14 @@ function creacionTortas (torta) {
     let tortaCreada = new crearTorta(id, torta);
     guardarNombreTorta(tortaCreada);
 }
+
+// function getTortaId() {
+//     const urlParams = new URLSearchParams(window.location.search);
+//     const tortaId = urlParams.get("id");
+//     return tortaId;
+// }
+
+
 
 //EventListener
 botonTortasUI.addEventListener("click", async(e) => {
