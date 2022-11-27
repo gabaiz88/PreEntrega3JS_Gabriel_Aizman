@@ -49,12 +49,9 @@ const listarDB = () => {
   if (arrayIngredientes === null) {
     arrayIngredientes = [];
   } else {
-    console.log(arrayIngredientes);
-    arrayIngredientes.forEach((element) => {
-        if(element.id === getId()){
-            listaIngredientesUI.innerHTML += `<div class="alert alert-primary" role="alert"><i class="icono float-left mr-2"><img src="./img/ingredientes.png" alt="ingredientes"></i><b>${element.ingrediente}</b><span>  - Tamaño: ${element.tamanio}</span><span>  - Precio: $${element.precio}</span><span>  - Cantidad: ${element.cantidad}</span><span class="float-right"><i id="trash" class="material-icons">delete</i></span></div>`;
-            console.log(element);
-        }  
+    let ingredienteFiltrados = arrayIngredientes.filter(item => item.id === getId())
+    ingredienteFiltrados.forEach((element) => {
+        listaIngredientesUI.innerHTML += `<div class="alert alert-primary" role="alert"><i class="icono float-left mr-2"><img src="./img/ingredientes.png" alt="ingredientes"></i><b>${element.ingrediente}</b><span>  - Tamaño: ${element.tamanio}</span><span>  - Precio: $${element.precio}</span><span>  - Cantidad: ${element.cantidad}</span><span class="float-right"><i id="trash" class="material-icons">delete</i></span></div>`;
     });
     listaIngredientesUI.innerHTML += `
     <div class="form_costo"><div class="input-group mb-3"><span class="input-group-text">RESULTADO/COSTO:</span><output id="resultado_costo" class="form-control" aria-label="">${costo}</div></div>`;
@@ -148,7 +145,6 @@ formularioUI.addEventListener("submit", (e) => {
               cantidad_inputUI
             )
           );
-          console.log(arrayIngredientes);
           guardarIngrediente();
           mensajeGuardado();
           formularioUI.reset();
@@ -184,12 +180,3 @@ boton_eliminarUI.addEventListener("click", (e) => {
   eliminarItem(ingrediente);
 });
 
-// botonCosto.addEventListener("click", (e) =>{
-//    e.preventDefault();
-
-//     calcularCosto();
-// })
-// let idTortaNueva = setID();
-// let nuevatorta = new Torta(idTortaNueva, torta);
-// arrayTortas.push(nuevatorta);
-// console.log(arrayTortas);

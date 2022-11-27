@@ -2,10 +2,10 @@
 
 const listaLinksUI = document.getElementById("listaLinks");
 const botonTortasUI = document.getElementById("botonTortas");
-const misTortas = [];
+let misTortas = [];
 
 //Constructor
-function crearTorta (id, nombre) {
+function Torta (id, nombre) {
     this.id = id;
     this.nombre = nombre;
 }
@@ -43,19 +43,34 @@ const confirmarGuardado = () => {
       })
 }
 
+//Guarda la torta en localStorage y lista
+const guardarTorta = () => {
+    localStorage.setItem("listaTortas", JSON.stringify(misTortas));
+    ListarNombresTortasDB();
+  };
+
 //lista las tortas en el DOM
 const ListarNombresTortasDB = () => {
     listaLinksUI.innerHTML = "";
+    misTortas = JSON.parse(localStorage.getItem("listaTortas"));
     if(misTortas === null){
         misTortas = [];
     } else {
-        misTortas.forEach(element => {
+        console.log("entro");
+        misTortas.forEach((element) => {
             listaLinksUI.innerHTML += `<a href="./ingredientes.html?id=${element.id}" class="item">
             <i class="cake_icon"><img src="./img/cake.png" alt="icono_torta"></i>
             <p>${element.nombre}</p>
         </a>`
         });
     }
+}
+
+// Funcion de crear la torta
+function creacionTortas (torta) {
+    id = setID();
+    let tortaCreada = new Torta(id, torta);
+    guardarNombreTorta(tortaCreada);
 }
 
 //Guarda el nombre de la torta
@@ -74,13 +89,10 @@ const guardarNombreTorta = (torta) =>{
         }
         if (!nombreIgual){
             misTortas.push(torta);
-            console.log(torta);
+            guardarTorta()
             confirmarGuardado();
-            ListarNombresTortasDB(torta);
             const url = new URL(`https://ingredientes.html?id=${torta.id}`);
             console.log(url);
-            // const torta1 = new URLSearchParams(url.search);
-            // console.log(torta1);
         } else {
             Swal.fire({
                 icon: 'warning',
@@ -90,27 +102,6 @@ const guardarNombreTorta = (torta) =>{
         }
     }
 }
-
-// function getMovieId() {
-//     const urlParams = new URLSearchParams(window.location.search);
-//     const movieId = urlParams.get("id");
-//     return movieId;
-// }
-
-// Funcion de crear la torta
-function creacionTortas (torta) {
-    id = setID();
-    let tortaCreada = new crearTorta(id, torta);
-    guardarNombreTorta(tortaCreada);
-}
-
-// function getTortaId() {
-//     const urlParams = new URLSearchParams(window.location.search);
-//     const tortaId = urlParams.get("id");
-//     return tortaId;
-// }
-
-
 
 //EventListener
 botonTortasUI.addEventListener("click", async(e) => {
@@ -131,17 +122,5 @@ botonTortasUI.addEventListener("click", async(e) => {
     creacionTortas(nombreTorta);
 });
 
-// function getMovieId() {
-//     const urlParams = new URLSearchParams(window.location.search);
-//     const movieId = urlParams.get("id");
-//     return movieId;
-// }
-
-
-// FUNCION EN EL ARCHIVO PRODUCTS.JS 
-//function getMovieId() {
-//     const urlParams = new URLSearchParams(window.location.search);
-// CALL = html: `<p>${overview}</p>
-//                 <a class="btn btn-primary" href="movie.html?id=${id}">Más detalles</a>
-//                 `,
-// DENTRO DE Swal.fire
+//genera la lista apenas carga el documento
+document.addEventListener("DOMContentLoaded", ListarNombresTortasDB);
