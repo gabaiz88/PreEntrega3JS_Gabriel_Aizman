@@ -94,8 +94,8 @@ const ListarNombresTortasDB = () => {
     } else {
         misTortas.forEach((element) => {
             listaLinksUI.innerHTML += `</div><a href="./ingredientes.html?id=${element.id}&nombre=${element.nombre}" class="item">
-            <i class="cake_icon"><img src="./img/cake.png" alt="icono_torta"></i><div class="item_contenedor"></div>
-            <p>${element.nombre}</p><i id="trash_index" class="material-icons">delete</i>`
+            <i class="cake_icon"><img src="./img/cake.png" alt="icono_torta"></i><div class="item_contenedor">
+            <p>${element.nombre}</p></div><i id="trash_index" class="material-icons">delete</i>`
         });
     }
 }
@@ -163,7 +163,8 @@ document.addEventListener("DOMContentLoaded", bienvenida);
 listaLinksUI.addEventListener("click", (e) => {
     if (e.target.innerHTML === "delete") {
         e.preventDefault();
-        let torta = e.path[1].childNodes[4].innerHTML;
+        console.log(e);
+        let torta = e.path[1].childNodes[2].childNodes[1].innerHTML;
         //Eliminar torta
         eliminarItem(torta);
     }

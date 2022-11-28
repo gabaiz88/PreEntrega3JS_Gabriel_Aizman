@@ -241,13 +241,18 @@ main {
     #botonTortas{
         width: 400px;
         height: 120px;
-        margin-left: 250px;
     }
 
     .item{
         flex-direction: column;
         padding: 1rem 1rem;
-        width: 220px;
+        width: 240px;
+        align-self: center;
+    }
+
+    .item_contenedor{
+    display: flex;
+    flex-direction: column;
     }
 
     .item img{
@@ -286,7 +291,7 @@ main {
 
 @media screen and (min-width: 1000px){
     .main-grid{
-        display: flex;
+        padding: 0rem 0rem;
     }
     
     .form_number_input{
