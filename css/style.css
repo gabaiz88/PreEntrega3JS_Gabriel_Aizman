@@ -215,9 +215,15 @@ main {
         display: none;
     }
 
-    #trash{
+    #trash_index{
         display: block;
         cursor: pointer;
+        align-self: flex-end;
+    }
+
+    #trash{
+        display: block;
+        cursor:pointer;
     }
 }
 
@@ -239,7 +245,8 @@ main {
     }
 
     .item{
-        padding: 3rem 1rem;
+        flex-direction: column;
+        padding: 1rem 1rem;
         width: 220px;
     }
 

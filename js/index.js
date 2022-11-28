@@ -3,6 +3,7 @@
 const listaLinksUI = document.getElementById("listaLinks");
 const botonTortasUI = document.getElementById("botonTortas");
 let misTortas = [];
+let id = -1;
 
 //Constructor
 function Torta (id, nombre) {
@@ -14,11 +15,10 @@ function Torta (id, nombre) {
 
 //setea el ID
 function setID () {
-    let id;
-    if(misTortas.length === 0){
+    if(id === -1){
         id = 1;
     } else {
-        id = misTortas.length + 1;
+        id ++;
     }
     return id;
 }
@@ -46,6 +46,9 @@ const confirmarGuardado = () => {
 //Guarda la torta en localStorage y lista
 const guardarTorta = () => {
     localStorage.setItem("listaTortas", JSON.stringify(misTortas));
+    if (misTortas.length === 0){
+        localStorage.clear();
+    }
     ListarNombresTortasDB();
   };
 
@@ -85,8 +88,8 @@ const ListarNombresTortasDB = () => {
     } else {
         misTortas.forEach((element) => {
             listaLinksUI.innerHTML += `</div><a href="./ingredientes.html?id=${element.id}&nombre=${element.nombre}" class="item">
-            <i class="cake_icon"><img src="./img/cake.png" alt="icono_torta"></i><div class="item_contenedor">
-            <p>${element.nombre}</p><i id="trash_index" class="material-icons">delete</i></div>`
+            <i class="cake_icon"><img src="./img/cake.png" alt="icono_torta"></i><div class="item_contenedor"></div>
+            <p>${element.nombre}</p><i id="trash_index" class="material-icons">delete</i>`
         });
     }
 }
@@ -154,7 +157,7 @@ document.addEventListener("DOMContentLoaded", ListarNombresTortasDB);
 listaLinksUI.addEventListener("click", (e) => {
     if (e.target.innerHTML === "delete") {
         e.preventDefault();
-        let torta = e.path[1].childNodes[1].innerHTML;
+        let torta = e.path[1].childNodes[4].innerHTML;
         //Eliminar torta
         eliminarItem(torta);
     }
