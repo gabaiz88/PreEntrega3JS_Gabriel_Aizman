@@ -136,13 +136,13 @@ main {
     display: none;
 }
 
-@media screen and (min-width: 400px){
+/* @media screen and (min-width: 400px){ */
     /* .main-grid{
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: 1fr;
     } */
-
+/* 
     .item{
         flex-direction: column;
         justify-content: center;
@@ -169,7 +169,7 @@ main {
     .lista_item{
         width: 500px ;
     }
-}
+} */
 
 @media screen and (min-width: 600px){
     /* .main-grid{
