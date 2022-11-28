@@ -149,3 +149,13 @@ botonTortasUI.addEventListener("click", async(e) => {
 
 //genera la lista apenas carga el documento
 document.addEventListener("DOMContentLoaded", ListarNombresTortasDB);
+
+
+listaLinksUI.addEventListener("click", (e) => {
+    if (e.target.innerHTML === "delete") {
+        e.preventDefault();
+        let torta = e.path[1].childNodes[1].innerHTML;
+        //Eliminar torta
+        eliminarItem(torta);
+    }
+});
