@@ -70,6 +70,9 @@ const listarDB = () => {
             listaIngredientesUI.innerHTML += `<div class="alert alert-primary" role="alert"><i class="icono float-left mr-2"><img src="./img/ingredientes.png" alt="ingredientes"></i><b>${element.ingrediente}</b><span>  - Tamaño: ${element.tamanio}</span><span>  - Precio: $${element.precio}</span><span>  - Cantidad: ${element.cantidad}</span><span class="float-right"><i id="trash" class="material-icons">delete</i></span></div>`;
         });
         let costosFiltrados = arrayCostos[getId()-1];
+        if (costosFiltrados === undefined){
+            costosFiltrados = 0;
+        }
         listaIngredientesUI.innerHTML += `
         <div class="form_costo"><div class="input-group mb-3"><span class="input-group-text">RESULTADO/COSTO:</span><output id="resultado_costo" class="form-control" aria-label="">${costosFiltrados}</div></div>`;
     }
@@ -103,12 +106,14 @@ const calcularCosto = () => {
     let costoIndividual = 0;
     let sumarCostos = 0;
     arrayIngredientes.forEach((elemento) => {
-        if (elemento.precio > 0 && elemento.cantidad > 0 && elemento.tamanio > 0) {
-            costoIndividual = parseFloat((elemento.cantidad / elemento.tamanio) * elemento.precio);
-        } else {
-            costoIndividual = 0;
+        if(elemento.id === getId()){
+            if (elemento.precio > 0 && elemento.cantidad > 0 && elemento.tamanio > 0) {
+                costoIndividual = parseFloat((elemento.cantidad / elemento.tamanio) * elemento.precio);
+            } else {
+                costoIndividual = 0;
+            }
+            sumarCostos += parseFloat(costoIndividual);
         }
-        sumarCostos += parseFloat(costoIndividual);
     });
     arrayCostos[getId()-1] = sumarCostos.toFixed(2);
     localStorage.setItem("costos", JSON.stringify(arrayCostos));
