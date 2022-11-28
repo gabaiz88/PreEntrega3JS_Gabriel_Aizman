@@ -252,7 +252,6 @@ main {
     }
     .form_number{
         display: flex;
-        gap: 5rem;
     } 
 
     .form_number p{

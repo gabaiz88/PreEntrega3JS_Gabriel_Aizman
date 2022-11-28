@@ -58,7 +58,6 @@ const agregarTitulo = () => {
 const listarDB = () => {
     listaIngredientesUI.innerHTML = "";
     arrayCostos = JSON.parse(localStorage.getItem("costos"));
-    agregarTitulo();
     if (arrayCostos === null){
         arrayCostos = [];
     }
@@ -181,6 +180,7 @@ formularioUI.addEventListener("submit", (e) => {
 });
 
 document.addEventListener("DOMContentLoaded", listarDB);
+document.addEventListener("DOMContentLoaded",agregarTitulo);
 
 listaIngredientesUI.addEventListener("click", (e) => {
     e.preventDefault();
