@@ -23,7 +23,7 @@ function setID () {
     return id;
 }
 
-//muestra un alert si esta guardada
+//Muestra un alert si esta guardada
 const confirmarGuardado = () => {
     const Toast = Swal.mixin({
         toast: true,
@@ -48,6 +48,33 @@ const guardarTorta = () => {
     localStorage.setItem("listaTortas", JSON.stringify(misTortas));
     ListarNombresTortasDB();
   };
+
+//Elimina la torta
+const eliminarItem = (torta) => {
+    let indexArray;
+    Swal.fire({
+        title: "Estas seguro/a?",
+        text: "No podrás revertirlo",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, borralo!",
+        cancelButtonText: "Cancelar",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire("Borrado!", "Tu torta se borró.", "success");
+            misTortas.forEach((elemento, index) => {
+                if (elemento.nombre === torta) {
+                    indexArray = index;
+                }
+            });
+            console.log(misTortas);
+            misTortas.splice(indexArray, 1);
+            guardarTorta();
+        }
+    });
+};
 
 //lista las tortas en el DOM
 const ListarNombresTortasDB = () => {
