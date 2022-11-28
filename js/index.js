@@ -56,7 +56,6 @@ const ListarNombresTortasDB = () => {
     if(misTortas === null){
         misTortas = [];
     } else {
-        console.log("entro");
         misTortas.forEach((element) => {
             listaLinksUI.innerHTML += `<a href="./ingredientes.html?id=${element.id}" class="item">
             <i class="cake_icon"><img src="./img/cake.png" alt="icono_torta"></i>
