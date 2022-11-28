@@ -2,6 +2,7 @@
 
 const listaLinksUI = document.getElementById("listaLinks");
 const botonTortasUI = document.getElementById("botonTortas");
+const botonEliminarUI = document.getElementById("boton_eliminar")
 let misTortas = [];
 let id = -1;
 
@@ -136,6 +137,15 @@ const guardarNombreTorta = (torta) =>{
     }
 }
 
+//Alertar torta no existe
+function tortaNoExiste () {
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'La torta ingresada no existe',
+      })
+}
+
 //EventListener
 botonTortasUI.addEventListener("click", async(e) => {
 
@@ -169,3 +179,26 @@ listaLinksUI.addEventListener("click", (e) => {
         eliminarItem(torta);
     }
 });
+
+botonEliminarUI.addEventListener("click", async(e) => {
+    e.preventDefault
+    const { value: nombreTorta } = await Swal.fire({
+        title: 'Ingrese el nombre de la torta',
+        input: 'text',
+        inputPlaceholder: 'Ingrese aqui el nombre de la torta',
+        showCancelButton: true,
+        inputValidator: (value) => {
+            if (!value) {
+              return 'Necesita ingresar un nombre!'
+            }
+          }
+    })
+    misTortas.forEach(element => {
+        if(element.nombre === nombreTorta){ 
+            eliminarItem(nombreTorta);
+        } else {
+            tortaNoExiste();
+        }
+    });
+});
+
