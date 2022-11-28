@@ -13,6 +13,13 @@ function Torta (id, nombre) {
 
 //Funciones
 
+//Bienvenida
+function bienvenida () {
+    if (misTortas.length === 0){
+        Swal.fire('Bienvenido/a al simulador de costos para tus tortas.')
+    }
+}
+
 //setea el ID
 function setID () {
     if(id === -1){
@@ -72,14 +79,13 @@ const eliminarItem = (torta) => {
                     indexArray = index;
                 }
             });
-            console.log(misTortas);
             misTortas.splice(indexArray, 1);
             guardarTorta();
         }
     });
 };
 
-//lista las tortas en el DOM
+//Lista las tortas en el DOM
 const ListarNombresTortasDB = () => {
     listaLinksUI.innerHTML = "";
     misTortas = JSON.parse(localStorage.getItem("listaTortas"));
@@ -120,7 +126,6 @@ const guardarNombreTorta = (torta) =>{
             guardarTorta()
             confirmarGuardado();
             const url = new URL(`https://ingredientes.html?id=${torta.id}`);
-            console.log(url);
         } else {
             Swal.fire({
                 icon: 'warning',
@@ -152,6 +157,7 @@ botonTortasUI.addEventListener("click", async(e) => {
 
 //genera la lista apenas carga el documento
 document.addEventListener("DOMContentLoaded", ListarNombresTortasDB);
+document.addEventListener("DOMContentLoaded", bienvenida);
 
 
 listaLinksUI.addEventListener("click", (e) => {

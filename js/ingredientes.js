@@ -185,7 +185,7 @@ formularioUI.addEventListener("submit", (e) => {
 });
 
 document.addEventListener("DOMContentLoaded", listarDB);
-document.addEventListener("DOMContentLoaded",agregarTitulo);
+document.addEventListener("DOMContentLoaded", agregarTitulo);
 
 listaIngredientesUI.addEventListener("click", (e) => {
     e.preventDefault();
