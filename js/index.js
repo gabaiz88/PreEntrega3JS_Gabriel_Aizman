@@ -85,8 +85,8 @@ const ListarNombresTortasDB = () => {
     } else {
         misTortas.forEach((element) => {
             listaLinksUI.innerHTML += `</div><a href="./ingredientes.html?id=${element.id}&nombre=${element.nombre}" class="item">
-            <i class="cake_icon"><img src="./img/cake.png" alt="icono_torta"></i>
-            <p>${element.nombre}</p>`
+            <i class="cake_icon"><img src="./img/cake.png" alt="icono_torta"></i><div class="item_contenedor">
+            <p>${element.nombre}</p><i id="trash_index" class="material-icons">delete</i></div>`
         });
     }
 }
