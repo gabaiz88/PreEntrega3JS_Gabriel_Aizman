@@ -70,6 +70,12 @@ main {
     line-height: 1.2;
 }
 
+.item_contenedor{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .item:hover {
     background-color: var(--clr-main);
     transform: scale(1.05);
@@ -126,8 +132,8 @@ main {
     display: none;
 }
 
-#trash_index{
-    margin-left: 200px;
+#trash_index {
+    display: block;
 }
 
 @media screen and (min-width: 400px){
