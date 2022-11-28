@@ -126,6 +126,10 @@ main {
     display: none;
 }
 
+#trash_index{
+    margin-left: 200px;
+}
+
 @media screen and (min-width: 400px){
     /* .main-grid{
         display: grid;

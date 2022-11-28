@@ -26,6 +26,12 @@ function getId() {
     return tortaId;
 }
 
+function getNombre() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tortaNombre = urlParams.get("nombre");
+    return tortaNombre;
+}
+
 const crearItem = (ingrediente, tamanio, precio, cantidad) => {
     let ingredienteUpper = ingrediente.toLowerCase();
     let item = {
@@ -43,10 +49,16 @@ const guardarIngrediente = () => {
     calcularCosto();
     listarDB();
 };
+const agregarTitulo = () => {
+    let titulo = document.getElementById("titulo");
+    nombre = getNombre();
+    titulo.innerHTML += `<h1>Ingredientes de ${nombre}</h1>`
+}
 
 const listarDB = () => {
     listaIngredientesUI.innerHTML = "";
     arrayCostos = JSON.parse(localStorage.getItem("costos"));
+    agregarTitulo();
     if (arrayCostos === null){
         arrayCostos = [];
     }
@@ -99,9 +111,9 @@ const calcularCosto = () => {
         }
         sumarCostos += parseFloat(costoIndividual);
     });
-    arrayCostos[getId()-1] = sumarCostos;
+    arrayCostos[getId()-1] = sumarCostos.toFixed(2);
     localStorage.setItem("costos", JSON.stringify(arrayCostos));
-    return sumarCostos.toFixed(2);
+    return sumarCostos;
 };
 
 const mensajeGuardado = () => {
