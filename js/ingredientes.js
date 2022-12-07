@@ -10,28 +10,31 @@ let arrayCostos = [];
 //Funciones
 
 //setea el ID
-function setID() {
-    let id;
-    if (arrayTortas.length === 0) {
-        id = 1;
-    } else {
-        id = arrayTortas.length + 1;
-    }
-    return id;
-}
+// function setID() {
+//     let id;
+//     if (arrayTortas.length === 0) {
+//         id = 1;
+//     } else {
+//         id = arrayTortas.length + 1;
+//     }
+//     return id;
+// }
 
+//recibe el id de la torta en el index
 function getId() {
     const urlParams = new URLSearchParams(window.location.search);
     const tortaId = urlParams.get("id");
     return tortaId;
 }
 
+//recibe el nombre de la torta en el index
 function getNombre() {
     const urlParams = new URLSearchParams(window.location.search);
     const tortaNombre = urlParams.get("nombre");
     return tortaNombre;
 }
 
+//crea el item
 const crearItem = (ingrediente, tamanio, precio, cantidad) => {
     let ingredienteUpper = ingrediente.toLowerCase();
     let item = {
@@ -44,17 +47,21 @@ const crearItem = (ingrediente, tamanio, precio, cantidad) => {
     return item;
 };
 
+//guarda el ingrediente en el local storage, calcula costo y lista la base de datos
 const guardarIngrediente = () => {
     localStorage.setItem("lista", JSON.stringify(arrayIngredientes));
     calcularCosto();
     listarDB();
 };
+
+//agrega el nombre de la torta del index al titulo de la pagina
 const agregarTitulo = () => {
     let titulo = document.getElementById("titulo");
     nombre = getNombre();
     titulo.innerHTML += `<h1>Ingredientes de ${nombre}</h1>`
 }
 
+//lista la DB
 const listarDB = () => {
     listaIngredientesUI.innerHTML = "";
     arrayCostos = JSON.parse(localStorage.getItem("costos"));
@@ -70,7 +77,7 @@ const listarDB = () => {
             listaIngredientesUI.innerHTML += `<div class="alert alert-primary" role="alert"><i class="icono float-left mr-2"><img src="./img/ingredientes.png" alt="ingredientes"></i><b>${element.ingrediente}</b><span>  - Tamaño: ${element.tamanio}</span><span>  - Precio: $${element.precio}</span><span>  - Cantidad: ${element.cantidad}</span><span class="float-right"><i id="trash" class="material-icons">delete</i></span></div>`;
         });
         let costosFiltrados = arrayCostos[getId()-1];
-        if (costosFiltrados === undefined){
+        if (costosFiltrados === undefined || costosFiltrados === null){
             costosFiltrados = 0;
         }
         listaIngredientesUI.innerHTML += `
@@ -78,6 +85,7 @@ const listarDB = () => {
     }
 };
 
+//elimina un item de la DB
 const eliminarItem = (ingrediente) => {
     Swal.fire({
         title: "Estas seguro/a?",
@@ -102,6 +110,7 @@ const eliminarItem = (ingrediente) => {
     });
 };
 
+//Calcula el costo
 const calcularCosto = () => {
     let costoIndividual = 0;
     let sumarCostos = 0;
@@ -120,6 +129,7 @@ const calcularCosto = () => {
     return sumarCostos;
 };
 
+//sweet alert del mensaje de guardado
 const mensajeGuardado = () => {
     const Toast = Swal.mixin({
         toast: true,
@@ -138,6 +148,7 @@ const mensajeGuardado = () => {
     });
 };
 
+//valida si los datos ingresados son correctos
 const validarDato = (dato) => {
     let validado = false;
     if (dato != "") {

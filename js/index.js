@@ -4,6 +4,7 @@ const listaLinksUI = document.getElementById("listaLinks");
 const botonTortasUI = document.getElementById("botonTortas");
 const botonEliminarUI = document.getElementById("boton_eliminar")
 let misTortas = [];
+let misTortasFijas = [];
 let id = -1;
 
 //Constructor
@@ -15,16 +16,16 @@ function Torta (id, nombre) {
 //Funciones
 
 //Bienvenida
-function bienvenida () {
-    if (misTortas.length === 0){
-        Swal.fire('Bienvenido/a al simulador de costos para tus tortas.')
-    }
-}
+// function bienvenida () {
+//     if (misTortas.length === 0){
+//         Swal.fire('Bienvenido/a al simulador de costos para tus tortas.')
+//     }
+// }
 
 //setea el ID
 function setID () {
-    if(id === -1){
-        id = 1;
+    if(misTortas.length == 4){
+        id = 5;
     } else {
         id ++;
     }
@@ -146,6 +147,28 @@ function tortaNoExiste () {
       })
 }
 
+function traerProductos() {
+    console.log(misTortasFijas);
+    if (misTortasFijas.length === 0){
+        fetch("../data.json")
+        .then((response) => response.json())
+        .then((data) => {
+          data.forEach((element) => {
+              guardarNombreTorta(element);
+              misTortasFijas.push(element);
+          });
+        });
+    }
+}
+
+function errorEliminar() {
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Esta torta no se puede eliminar ya que es parte de las predefinidas',
+      })
+}
+
 //EventListener
 botonTortasUI.addEventListener("click", async(e) => {
 
@@ -167,19 +190,30 @@ botonTortasUI.addEventListener("click", async(e) => {
 
 //genera la lista apenas carga el documento
 document.addEventListener("DOMContentLoaded", ListarNombresTortasDB);
-document.addEventListener("DOMContentLoaded", bienvenida);
+// document.addEventListener("DOMContentLoaded", bienvenida);
+document.addEventListener("DOMContentLoaded", traerProductos);
 
-
+//eliminar desde Ico
 listaLinksUI.addEventListener("click", (e) => {
     if (e.target.innerHTML === "delete") {
         e.preventDefault();
         console.log(e);
         let torta = e.path[1].childNodes[2].childNodes[1].innerHTML;
-        //Eliminar torta
-        eliminarItem(torta);
+        let found = misTortasFijas.find(element => torta === element.nombre);
+        if (found){
+            console.log(torta);
+            console.log(misTortasFijas);
+            console.log("entro");
+            errorEliminar(torta);
+        } else {
+            //Eliminar torta
+            eliminarItem(torta);
+            console.log("entro a eliminar");
+        }
     }
 });
 
+//Eliminar en mobile
 botonEliminarUI.addEventListener("click", async(e) => {
     e.preventDefault
     const { value: nombreTorta } = await Swal.fire({
@@ -193,12 +227,17 @@ botonEliminarUI.addEventListener("click", async(e) => {
             }
           }
     })
-    misTortas.forEach(element => {
-        if(element.nombre === nombreTorta){ 
-            eliminarItem(nombreTorta);
-        } else {
-            tortaNoExiste();
-        }
-    });
+    let found = misTortasFijas.find(element => nombreTorta === element.nombre);
+    if (found){
+        errorEliminar();
+    } else {
+        misTortas.forEach(element => {
+            if(element.nombre === nombreTorta){ 
+                eliminarItem(nombreTorta);
+            } else {
+                tortaNoExiste();
+            }
+        });
+    }
 });
 
