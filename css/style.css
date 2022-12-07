@@ -136,41 +136,6 @@ main {
     display: none;
 }
 
-/* @media screen and (min-width: 400px){ */
-    /* .main-grid{
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr;
-    } */
-/* 
-    .item{
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-        gap: 0;
-    }
-
-    .item img{
-        width: 40px;
-    }
-
-    .form_number p{
-        font-size: x-large;
-    }
-
-    .form_number_input{
-        width: 500px;
-    }
-    
-    .form_ingrediente input{
-        width: 500px;
-    }
-
-    .lista_item{
-        width: 500px ;
-    }
-} */
-
 @media screen and (min-width: 600px){
     /* .main-grid{
         grid-template-columns: 1fr 1fr 1fr;
