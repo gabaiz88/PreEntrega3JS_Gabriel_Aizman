@@ -9,17 +9,6 @@ let arrayCostos = [];
 
 //Funciones
 
-//setea el ID
-// function setID() {
-//     let id;
-//     if (arrayTortas.length === 0) {
-//         id = 1;
-//     } else {
-//         id = arrayTortas.length + 1;
-//     }
-//     return id;
-// }
-
 //recibe el id de la torta en el index
 function getId() {
     const urlParams = new URLSearchParams(window.location.search);

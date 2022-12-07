@@ -5,10 +5,9 @@ const botonTortasUI = document.getElementById("botonTortas");
 const botonEliminarUI = document.getElementById("boton_eliminar")
 let misTortas = [];
 let misTortasFijas = [];
-let id = -1;
 
 //Constructor
-function Torta (id, nombre) {
+function Torta(id, nombre) {
     this.id = id;
     this.nombre = nombre;
 }
@@ -16,18 +15,18 @@ function Torta (id, nombre) {
 //Funciones
 
 //Bienvenida
-// function bienvenida () {
-//     if (misTortas.length === 0){
-//         Swal.fire('Bienvenido/a al simulador de costos para tus tortas.')
-//     }
-// }
+function bienvenida () {
+    if (misTortasFijas.length === 0 && localStorage.length === 0){
+        Swal.fire('Bienvenido/a al simulador de costos para tus tortas.')
+    }
+}
 
 //setea el ID
-function setID () {
-    if(misTortas.length == 4){
+function setID() {
+    if (misTortas.length == 4) {
         id = 5;
     } else {
-        id ++;
+        id++;
     }
     return id;
 }
@@ -41,25 +40,22 @@ const confirmarGuardado = () => {
         timer: 2000,
         timerProgressBar: true,
         didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
-      })
+    })
 
-      Toast.fire({
+    Toast.fire({
         icon: 'success',
         title: 'Nombre de torta guardado.'
-      })
+    })
 }
 
 //Guarda la torta en localStorage y lista
 const guardarTorta = () => {
     localStorage.setItem("listaTortas", JSON.stringify(misTortas));
-    if (misTortas.length === 0){
-        localStorage.clear();
-    }
     ListarNombresTortasDB();
-  };
+};
 
 //Elimina la torta
 const eliminarItem = (torta) => {
@@ -91,7 +87,7 @@ const eliminarItem = (torta) => {
 const ListarNombresTortasDB = () => {
     listaLinksUI.innerHTML = "";
     misTortas = JSON.parse(localStorage.getItem("listaTortas"));
-    if(misTortas === null){
+    if (misTortas === null) {
         misTortas = [];
     } else {
         misTortas.forEach((element) => {
@@ -103,74 +99,77 @@ const ListarNombresTortasDB = () => {
 }
 
 // Funcion de crear la torta
-function creacionTortas (torta) {
+function creacionTortas(torta) {
     id = setID();
     let tortaCreada = new Torta(id, torta);
     guardarNombreTorta(tortaCreada);
 }
 
 //Guarda el nombre de la torta
-const guardarNombreTorta = (torta) =>{
+const guardarNombreTorta = (torta) => {
     let i = 0;
     let nombreIgual = false;
     if (torta.nombre != undefined) {
-        if(misTortas.length != 0){
-            while (i < misTortas.length && !nombreIgual){
-                if (misTortas[i].nombre != torta.nombre){
+        if (misTortas.length != 0) {
+            while (i < misTortas.length && !nombreIgual) {
+                if (misTortas[i].nombre != torta.nombre) {
                     i++;
                 } else {
                     nombreIgual = true;
                 }
             }
         }
-        if (!nombreIgual){
+        if (!nombreIgual) {
             misTortas.push(torta);
             guardarTorta()
             confirmarGuardado();
             const url = new URL(`https://ingredientes.html?id=${torta.id}`);
         } else {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Oops...',
-                text: 'El nombre de la torta esta repetido. Ingrese uno nuevo.',
-              })
+            if (misTortasFijas.length === 4) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Oops...',
+                    text: 'El nombre de la torta esta repetido. Ingrese uno nuevo.',
+                })
+            }
         }
     }
 }
 
 //Alertar torta no existe
-function tortaNoExiste () {
+function tortaNoExiste() {
     Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'La torta ingresada no existe',
-      })
+    })
 }
 
+//Funcion fetch del data.json
 function traerProductos() {
-    console.log(misTortasFijas);
-    if (misTortasFijas.length === 0){
+    if (misTortasFijas.length === 0) {
         fetch("../data.json")
-        .then((response) => response.json())
-        .then((data) => {
-          data.forEach((element) => {
-              guardarNombreTorta(element);
-              misTortasFijas.push(element);
-          });
-        });
+            .then((response) => response.json())
+            .then((data) => {
+                data.forEach((element) => {
+                    guardarNombreTorta(element);
+                    misTortasFijas.push(element);
+                });
+            });
     }
 }
 
+//Alerta de error al querer eliminar
 function errorEliminar() {
     Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Esta torta no se puede eliminar ya que es parte de las predefinidas',
-      })
+    })
 }
 
 //EventListener
-botonTortasUI.addEventListener("click", async(e) => {
+botonTortasUI.addEventListener("click", async (e) => {
 
     e.preventDefault();
 
@@ -181,40 +180,36 @@ botonTortasUI.addEventListener("click", async(e) => {
         showCancelButton: true,
         inputValidator: (value) => {
             if (!value) {
-              return 'Necesita ingresar un nombre!'
+                return 'Necesita ingresar un nombre!'
             }
-          }
+        }
     })
     creacionTortas(nombreTorta);
 });
 
 //genera la lista apenas carga el documento
+
 document.addEventListener("DOMContentLoaded", ListarNombresTortasDB);
-// document.addEventListener("DOMContentLoaded", bienvenida);
 document.addEventListener("DOMContentLoaded", traerProductos);
+
 
 //eliminar desde Ico
 listaLinksUI.addEventListener("click", (e) => {
     if (e.target.innerHTML === "delete") {
         e.preventDefault();
-        console.log(e);
         let torta = e.path[1].childNodes[2].childNodes[1].innerHTML;
         let found = misTortasFijas.find(element => torta === element.nombre);
-        if (found){
-            console.log(torta);
-            console.log(misTortasFijas);
-            console.log("entro");
+        if (found) {
             errorEliminar(torta);
         } else {
             //Eliminar torta
             eliminarItem(torta);
-            console.log("entro a eliminar");
         }
     }
 });
 
 //Eliminar en mobile
-botonEliminarUI.addEventListener("click", async(e) => {
+botonEliminarUI.addEventListener("click", async (e) => {
     e.preventDefault
     const { value: nombreTorta } = await Swal.fire({
         title: 'Ingrese el nombre de la torta',
@@ -223,16 +218,16 @@ botonEliminarUI.addEventListener("click", async(e) => {
         showCancelButton: true,
         inputValidator: (value) => {
             if (!value) {
-              return 'Necesita ingresar un nombre!'
+                return 'Necesita ingresar un nombre!'
             }
-          }
+        }
     })
     let found = misTortasFijas.find(element => nombreTorta === element.nombre);
-    if (found){
+    if (found) {
         errorEliminar();
     } else {
         misTortas.forEach(element => {
-            if(element.nombre === nombreTorta){ 
+            if (element.nombre === nombreTorta) {
                 eliminarItem(nombreTorta);
             } else {
                 tortaNoExiste();
