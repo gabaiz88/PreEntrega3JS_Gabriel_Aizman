@@ -156,9 +156,9 @@ function tortaNoExiste() {
 }
 
 //Funcion fetch del data.json
-function traerProductos() {
+async function traerProductos() {
     if (misTortasFijas.length === 0) {
-        fetch("./data.json")
+        await fetch("./data.json")
             .then((response) => response.json())
             .then((data) => {
                 data.forEach((element) => {
