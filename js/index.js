@@ -5,6 +5,7 @@ const botonTortasUI = document.getElementById("botonTortas");
 const botonEliminarUI = document.getElementById("boton_eliminar")
 let misTortas = [];
 let misTortasFijas = [];
+let sesion;
 
 //Constructor
 function Torta(id, nombre) {
@@ -14,10 +15,19 @@ function Torta(id, nombre) {
 
 //Funciones
 
-//Bienvenida
 function bienvenida () {
-    if (misTortasFijas.length === 0 && localStorage.length === 0){
-        Swal.fire('Bienvenido/a al simulador de costos para tus tortas.')
+    let sesionOk = sessionStorage.getItem("sesion");
+    if(!sesionOk){
+        Swal.fire({
+            title: 'Bienvenido al simulador de costos para tus tortas. Podes utilizar las tortas predefinidas o agregar la que desees. Comencemos!',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__hinge'
+            }
+          })
+        sessionStorage.setItem("sesion", true);
     }
 }
 
@@ -170,9 +180,7 @@ function errorEliminar() {
 
 //EventListener
 botonTortasUI.addEventListener("click", async (e) => {
-
     e.preventDefault();
-
     const { value: nombreTorta } = await Swal.fire({
         title: 'Ingrese el nombre de la torta',
         input: 'text',
@@ -188,9 +196,9 @@ botonTortasUI.addEventListener("click", async (e) => {
 });
 
 //genera la lista apenas carga el documento
-
 document.addEventListener("DOMContentLoaded", ListarNombresTortasDB);
 document.addEventListener("DOMContentLoaded", traerProductos);
+document.addEventListener("DOMContentLoaded", bienvenida);
 
 
 //eliminar desde Ico
