@@ -158,7 +158,7 @@ function tortaNoExiste() {
 //Funcion fetch del data.json
 function traerProductos() {
     if (misTortasFijas.length === 0) {
-        fetch("../data.json", {mode: "no-cors"})
+        fetch("../data.json")
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
