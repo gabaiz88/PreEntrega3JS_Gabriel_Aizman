@@ -191,7 +191,8 @@ listaIngredientesUI.addEventListener("click", (e) => {
     e.preventDefault();
 
     if (e.target.innerHTML === "delete") {
-        let ingrediente = e.path[2].childNodes[1].innerHTML;
+        console.log(e);
+        let ingrediente = e.target.offsetParent.childNodes[1].innerHTML;
         //Eliminar ingrediente
         eliminarItem(ingrediente);
     }

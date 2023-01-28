@@ -204,9 +204,10 @@ document.addEventListener("DOMContentLoaded", bienvenida);
 
 //eliminar desde Ico
 listaLinksUI.addEventListener("click", (e) => {
+    console.log(e);
     if (e.target.innerHTML === "delete") {
         e.preventDefault();
-        let torta = e.path[1].childNodes[2].childNodes[1].innerHTML;
+        let torta = e.target.parentElement.childNodes[2].childNodes[1].innerHTML;
         let found = misTortasFijas.find(element => torta === element.nombre);
         if (found) {
             errorEliminar(torta);
